@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  s3avscanner:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: antivirus.lambdaHandleEvent
+      Runtime: nodejs12.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 1024
+      Timeout: 600
+      Role: 'arn:aws:iam::550239480852:role/s3.bucket.av.lambda.scanner'
+      Events:
+        BucketEvent1:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: Bucket1
+            Events:
+              - 's3:ObjectCreated:*'
+      Environment:
+        Variables:
+          CLAMAV_BUCKET_NAME: clamav-definitions-bucket
+          PATH_TO_AV_DEFINITIONS: lambda/s3-antivirus/av-definitions
+      Layers:
+        - >-
+          arn:aws:lambda:us-west-2:550239480852:layer:clamav-dependencies-layer:6
+  Bucket1:
+    Type: 'AWS::S3::Bucket'
