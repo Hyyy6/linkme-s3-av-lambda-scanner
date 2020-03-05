@@ -1,7 +1,7 @@
 /**
  * Lambda function that will be perform the scan and tag the file accordingly.
  */
-const http = require('http');
+const https = require('https');
 const AWS = require('aws-sdk');
 const path = require('path');
 const fs = require('fs');
@@ -96,7 +96,9 @@ async function lambdaHandleEvent(event, context) {
     } 
     
     try {
+        console.log('object key: ' + s3ObjectKey);
         await notifyServer(s3ObjectKey);
+        console.log("server notified")
     } catch (e){
         console.log(e);
     }
@@ -133,8 +135,7 @@ async function notifyServer(s3ObjectKey) {
     return new Promise( (resolve, reject) => {
         let data = { objectKey: s3ObjectKey };
         let options = {
-            host: 'rlinkmetest.ddns.net',
-            port: 8521,
+            host: constants.HOST_SERVER,
             path: '/lambda',
             method: 'POST',
             headers: {
@@ -145,7 +146,7 @@ async function notifyServer(s3ObjectKey) {
             }
         };
         
-        let request = http.request(options, (response) => {
+        let request = https.request(options, (response) => {
             if (response.statusCode < 200 || response.statusCode >= 300) {
                 reject(new Error(`${response.statusCode}: ${response.req.getHeader('host')} ${response.req.path}`));
             }

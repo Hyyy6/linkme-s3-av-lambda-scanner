@@ -18,6 +18,7 @@
 // Various paths and application names on S3
 const CLAMAV_BUCKET_NAME = process.env.CLAMAV_BUCKET_NAME;
 const PATH_TO_AV_DEFINITIONS = process.env.PATH_TO_AV_DEFINITIONS;
+const HOST_SERVER = process.env.HOST_SERVER;
 const PATH_TO_FRESHCLAM = '/opt/bin/freshclam';
 const PATH_TO_CLAMAV = '/opt/bin/clamscan';
 const FRESHCLAM_CONFIG = '/opt/etc/freshclam.conf';
@@ -39,6 +40,7 @@ const CLAMAV_DEFINITIONS_FILES = ['main.cvd', 'daily.cvd', 'bytecode.cvd'];
 module.exports = {
     CLAMAV_BUCKET_NAME          : CLAMAV_BUCKET_NAME,
     PATH_TO_AV_DEFINITIONS      : PATH_TO_AV_DEFINITIONS,
+    HOST_SERVER                 : HOST_SERVER,
     PATH_TO_FRESHCLAM           : PATH_TO_FRESHCLAM,
     PATH_TO_CLAMAV              : PATH_TO_CLAMAV,
     FRESHCLAM_CONFIG            : FRESHCLAM_CONFIG,
