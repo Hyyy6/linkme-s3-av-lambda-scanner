@@ -1,4 +1,6 @@
 ﻿# linkme-s3-av-lambda-scanner
+Based on truework ClamAV S3 lambda scanner:
+https://github.com/truework/lambda-s3-antivirus/
 
 1. Setup clamav layer using Docker and run the following command, which would create layer.zip file in layer-src directory
 
